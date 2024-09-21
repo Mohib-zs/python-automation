@@ -3,7 +3,7 @@ from azure.mgmt.network import NetworkManagementClient
 import os
 from dotenv import load_dotenv
 
-load_dotenv(".env\\env.env")  # take environment variables
+load_dotenv(".env\\.env")  # take environment variables
 
 subscription_id = os.getenv('AZURE_SUBSCRIPTION_ID')
 
