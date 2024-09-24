@@ -15,7 +15,7 @@ variable location {}
 variable my_ip {}
 variable vm_size {}
 variable vm_username {}
-variable vm_names {}
+variable vm_names {}        #No.of Names = No.of Vms ["vm1", "vm2"]
 
 locals {
   custom_data = <<CUSTOM_DATA
