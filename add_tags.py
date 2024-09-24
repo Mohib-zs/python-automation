@@ -7,8 +7,8 @@ load_dotenv(".env\\.env")  # take environment variables
 
 subscription_id     = os.getenv('AZURE_SUBSCRIPTION_ID')
 resource_group_name = 'VmResources'
-tag_key             = 'Environment'
-tag_value           = 'PROD'
+tag_key             = 'environment'
+tag_value           = 'prod'
 
 # Initialize Azure client
 credential      = DefaultAzureCredential()
