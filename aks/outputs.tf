@@ -8,7 +8,7 @@ output "aks_cluster_kubeconfig" {
 }
 
 output "aks_identity" {
-  value = module.my-app-aks.cluster_identity
+  value = module.my-app-aks.cluster_identity[0].principal_id
 }
 
 output "kubelet_identity" {
