@@ -28,7 +28,7 @@ def list_aks_clusters(subscription_id):
         location = cluster.location
         status = cluster.provisioning_state
         state = cluster.power_state.code
-        endpoint = cluster.fqdn
+        endpoint = cluster.fqdn                         #Also known as API server
         kubernetes_version = cluster.kubernetes_version
 
         # Print cluster details

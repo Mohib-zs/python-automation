@@ -1,6 +1,6 @@
 .env/*
-terraform.*
-.terraform/*
+vms/terraform.*
+vms/.terraform/*
 aks/.terraform
 aks/terraform.*
 aks/.terraform.*
