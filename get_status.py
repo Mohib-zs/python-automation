@@ -25,7 +25,7 @@ def fetch_vm_status():
         statuses = vm_instance.statuses
         
         # Get VM power state (running/stopped/etc.)
-        power_state = next((status.code.split('/')[-1] for status in vm_instance.statuses if 'PowerState' in status.code), "Unknown")
+        power_state = next((status.code.split('/')[-1] for status in statuses if 'PowerState' in status.code), "Unknown")
         
         # Get provisioning state (succeeded/failed/etc.)
         provisioning_state = vm.provisioning_state
