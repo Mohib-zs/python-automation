@@ -124,14 +124,14 @@ module "my-app-aks" {
 
 # Assign Network Contributor Role to System-Assigned Identity
 resource "azurerm_role_assignment" "network_contributor" {
-  principal_id   = module.my-app-aks.kubelet_identity[0].client_id
+  principal_id   = module.my-app-aks.cluster_identity[0].principal_id
   role_definition_name = "Network Contributor"
   scope          = data.terraform_remote_state.vnet.outputs.vnet_id  # Assign at the vnet level
 }
 
 # Assign AKS Cluster Admin Role to System-Assigned Identity
 resource "azurerm_role_assignment" "aks_cluster_admin" {
-  principal_id   = module.my-app-aks.kubelet_identity[0].client_id
+  principal_id   = module.my-app-aks.cluster_identity[0].principal_id
   role_definition_name = "Azure Kubernetes Service RBAC Cluster Admin"
   scope          = module.my-app-aks.aks_id  # Assign at the AKS cluster level
 }
