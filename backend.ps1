@@ -1,14 +1,14 @@
 # Backend Storage Script for Terraform State File
 
-$resourceGroupName  = 'my-app-resources'
-$location           = 'centralus'
-$accountName        = 'tfbackend21fd4466'
-$storageAccountName = 'terraform-backend'
-$aksClusterName     = 'my-app-aks'
+$resource_group_name    = 'my-app-resources'
+$location               = 'centralus'
+$storage_account_name   = 'tfbackend21fd4466'
+$storage_container_name = 'terraform-backend'
+$aks_cluster_name       = 'my-app-aks'
 
-az group create --name $resourceGroupName --location $location       #Create a rg (Skip if you've already configured one (Ensure the existing rg location matches the other resources))
-az storage account create --resource-group $resourceGroupName --name $accountName --sku Standard_LRS        #Create a storage account
-az storage account blob-service-properties update --account-name $accountName --resource-group $resourceGroupName --enable-versioning       #Enable Blob Versioning
-az storage container create --name $storageAccountName --account-name $accountName --auth-mode login            #Create a blob container
-# az aks show --resource-group $resourceGroupName --name $aksClusterName --query identity
+# az group create --name $resourceGroupName --location $location       #Create a rg (Skip if you've already configured one (Ensure the existing rg location matches the other resources))
+az storage account create --resource-group $resource_group_name --name $storage_account_name --sku Standard_LRS        #Create a storage account
+az storage account blob-service-properties update --account-name $storage_account_name --resource-group $resource_group_name --enable-versioning       #Enable Blob Versioning
+az storage container create --name $storage_container_name --account-name $storage_account_name --auth-mode login            #Create a blob container
+# az aks show --resource-group $resource_group_name --name $aks_cluster_name --query identity
 
