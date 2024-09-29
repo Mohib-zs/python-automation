@@ -1,30 +1,41 @@
-import requests
 import smtplib
+import requests 
 import os
+from email.mime.text import MIMEText
 from dotenv import load_dotenv
 
 load_dotenv(".env\\.env")  # take environment variables
 
-email_address  = os.getenv('EMAIL_ADDRESS')
-email_password = os.getenv('EMAIL_PASSWORD')
-msg            = "Subject: SITE DOWN\nFix the issue"
+sender_email    = os.getenv('SENDER_EMAIL')
+sender_password = os.getenv('SENDER_EMAIL_PWD')                                  #Set an app password on gmail
+receiver_email  = os.getenv('RECEIVER_EMAIL')
+url_to_check    = "http://mohibzahid.eastus.cloudapp.azure.com:8080/"           #Can set as an env.var as well
 
 
-response = requests.get('http://mohibzahid.eastus.cloudapp.azure.com:8080/')
+def send_email(subject, message):
+  with smtplib.SMTP('smtp.gmail.com', 587) as server:           #Access Google domain and port
+    server.starttls()                                           #Encryption enabled (Necessary)
+    server.ehlo                                                 #A handshake to make server aware (Optional)
+    server.login(sender_email, sender_password)
+    server.sendmail(sender_email, receiver_email, message.as_string())
 
-if False:
-    print("Application is running successfully")
-else:
-    print("Application down. Fix it")
+try:
+  # Send a GET request to the health check URL
+  response = requests.get(url_to_check)
 
-    try:
-        with smtplib.SMTP('smtp.office365.com', 587) as smtp:
-            smtp.starttls()
-            smtp.ehlo()
-            smtp.login("e-21f-bscs-44@students.duet.edu.pk", "Balistic6261")
-            smtp.sendmail("e-21f-bscs-44@students.duet.edu.pk", "mohibzahid97@gmail.com", msg)
-            print("Email sent successfully.")
-    except smtplib.SMTPAuthenticationError:
-        print("Failed to log in. Please check your email credentials.")
-    except Exception as e:
-        print(f"An error occurred: {e}")
+  if response.status_code == 200:
+    # Application is running
+    message = MIMEText(f"Application is running! Response code: {response.status_code}")        #Email message
+    message['Subject'] = "Application Status: Running"                                          #Email Subject
+    send_email(message['Subject'], message)
+  else:
+    # Application is not running
+    message = MIMEText(f"Application is not running! Response code: {response.status_code}")
+    message['Subject'] = "Application Status: Not Running"
+    send_email(message['Subject'], message)
+
+except Exception as e:
+  # Error occurred such as connection failure
+  message = MIMEText(f"An error occurred: {str(e)}")
+  message['Subject'] = "Application Status: Error"
+  send_email(message['Subject'], message)

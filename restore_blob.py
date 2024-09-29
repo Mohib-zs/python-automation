@@ -32,7 +32,7 @@ def create_disk_from_snapshot(snapshot):
     }
     return compute_client.disks.begin_create_or_update(resource_group_name, disk_name, disk_config).result()
 
-# Attach disk to VM
+# Attach disk to VM as data disk, change the code in fuction to swap if os disk is corrupted
 def attach_disk_to_vm(disk):
     vm = compute_client.virtual_machines.get(resource_group_name, vm_name)
     vm.storage_profile.data_disks.append({
