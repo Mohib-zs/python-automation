@@ -45,7 +45,7 @@ try:
   # Send a GET request to the health check URL
   response = requests.get(url_to_check)
 
-  if response.status_code != 200:
+  if response.status_code == 200:
     # Application is running
     print("Application running successfully")
     message = MIMEText(f"Application is running! Response code: {response.status_code}")        #Email message
