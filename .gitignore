@@ -1,12 +1,1 @@
 .env/*
-vms/terraform.*
-vms/.terraform/*
-aks/.terraform
-aks/terraform.*
-aks/.terraform.*
-rg/.terraform/*
-rg/terraform.*
-rg/.terraform.*
-vnet/.terraform/*
-vnet/terraform.*
-vnet/.terraform.*
